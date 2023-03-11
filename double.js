@@ -8,7 +8,7 @@
 
 // console.log(dbl((process.argv[2])));
 
-const CtoF = (a)=>(a*(9/5)+32).toFixed(3);
-const [, , a] = process.argv;
-console.log(`Temp in C to F is ${CtoF(a)}`);
+// const CtoF = (a)=>(a*(9/5)+32).toFixed(3);
+// const [, , a] = process.argv;
+// console.log(`Temp in C to F is ${CtoF(a)}`);
 
