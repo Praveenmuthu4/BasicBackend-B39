@@ -32,7 +32,6 @@ app.get("/movies", async function (request, response) {
 app.get("/movies/:id", async function (request, response) {
   const { id } = request.params;
   console.log(id);
-  // const movie = movies.filter((mv)=>mv.id === id);
   const movie = await client
     .db("b39we")
     .collection("movies")
