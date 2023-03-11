@@ -1,13 +1,14 @@
 import express from "express";
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
 const app = express();
 
-const PORT = 4000;
+dotenv.config();
+const PORT=process.env.PORT;
 
 // const MONGO_URL = "mongodb://127.0.0.1";
 
-const MONGO_URL =
-  "mongodb+srv://Praveen:LsD4HY5lGba39qWi@cluster0.3tfvbzi.mongodb.net";
+const MONGO_URL = process.env.MONGO_URL ;
 
 const client = new MongoClient(MONGO_URL);
 await client.connect();
