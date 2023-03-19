@@ -1,10 +1,12 @@
 import express from "express";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import cors from "cors";
 import { userRouter } from "./routes/user.js";
 import { findMovies, findMoviebyID, createMovie, deleteMovie, updateMovie } from "./helper.js";
 
 const app = express();
+app.use(cors());
 
 dotenv.config();
 const PORT = process.env.PORT;

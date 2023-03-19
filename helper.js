@@ -34,7 +34,10 @@ export function createMovie() {
 
     console.log("Done", data);
 
-    const result = await client.db("b39we").collection("movies").insertMany(data);
+    const result = await client
+      .db("b39we")
+      .collection("movies")
+      .insertMany(data);
 
     response.send(result);
   };
@@ -76,10 +79,20 @@ export async function genPassword(password) {
   return hashedPassword;
 }
 
-
-export async function createUser(username, hashedPassword){
+export async function createUser(username, hashedPassword) {
   return await client
-  .db("b39we")
-  .collection("users")
-  .insertOne({ username: username , password: hashedPassword });
+    .db("b39we")
+    .collection("users")
+    .insertOne({ username: username, password: hashedPassword });
+}
+
+export async function getUserByName(username) {
+  return await client
+    .db("b39we")
+    .collection("users")
+    .findOne({ username: username });
+}
+
+export async function getUserList() {
+  return await client.db("b39we").collection("users").find().toArray();
 }
