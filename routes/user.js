@@ -1,7 +1,7 @@
 import express from "express";
 import  jwt  from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { genPass, createUser,getUserByName, getUserList } from "../helper.js";
+import { genPass, createUser,getUserByName, getAllUsers } from "../helper.js";
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -48,7 +48,7 @@ router.post("/login", async (req, res) => {
 });
 
 router.get("/list", async (req, res) => {
-  const result = await getUserList();
+  const result = await getAllUsers();
   res.send(result);
 });
 
