@@ -1,98 +1,93 @@
+import { ObjectId } from 'mongodb';
 import { client } from "./index.js";
-import bcrypt from "bcrypt";
+import bcrypt from 'bcrypt'
 
-export function findMovies() {
-  return async function (request, response) {
-    const movies = await client
-      .db("b39we")
-      .collection("movies")
-      .find({})
-      .toArray();
-
-    console.log(movies);
-    response.send(movies);
-  };
+// BOOKS
+export async function createBook(newBooks) {
+    return await client
+        .db("b40-b39-we")
+        .collection("books")
+        .insertMany(newBooks);
 }
-export function findMoviebyID() {
-  return async function (request, response) {
-    const { id } = request.params;
-    console.log(id);
-    const movie = await client
-      .db("b39we")
-      .collection("movies")
-      .findOne({ id: id });
-
-    console.log(movie);
-    movie
-      ? response.send(movie)
-      : response.status(404).send({ message: "Movie not found" });
-  };
+export async function deleteBookById(id) {
+    return await client
+        .db("b40-b39-we")
+        .collection("books")
+        .deleteOne({  _id:new ObjectId(id) });
 }
-export function createMovie() {
-  return async function (request, response) {
-    const data = request.body;
-
-    console.log("Done", data);
-
-    const result = await client
-      .db("b39we")
-      .collection("movies")
-      .insertMany(data);
-
-    response.send(result);
-  };
+export async function getBookById(id) {
+    return await client
+        .db("b40-b39-we")
+        .collection("books")
+        .findOne({ _id: new ObjectId(id) });
 }
-export function deleteMovie() {
-  return async function (request, response) {
-    const { id } = request.params;
-
-    console.log(id);
-
-    const result = await client
-      .db("b39we")
-      .collection("movies")
-      .deleteOne({ id: id });
-
-    console.log(result);
-    result.deletedCount > 0
-      ? response.send({ message: "Movie Deleted" })
-      : response.status(404).send({ message: "Movie Not found" });
-  };
+export async function getAllBooks(req) {
+    return await client
+        .db("b40-b39-we")
+        .collection("books")
+        .find(req.query)
+        .toArray();
 }
-export function updateMovie() {
-  return async function (request, response) {
-    const { id } = request.params;
-    const data = request.body;
-
-    const result = await client
-      .db("b39we")
-      .collection("movies")
-      .updateOne({ id: id }, { $set: data });
-
-    response.send(result);
-  };
+export async function updateBook(id, data) {
+    return await client.db("b40-b39-we")
+        .collection("books")
+        .updateOne({ _id:new ObjectId(id) }, { $set: data });
 }
 
-export async function genPassword(password) {
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
-  return hashedPassword;
+ 
+
+// USERS
+export async function genPass(password) {
+    const salt = await bcrypt.genSalt(10)
+    const hashedPass = await bcrypt.hash(password, salt)
+    return hashedPass
 }
 
-export async function createUser(username, hashedPassword) {
-  return await client
-    .db("b39we")
-    .collection("users")
-    .insertOne({ username: username, password: hashedPassword });
+// console.log(genPass("passwoed@123"))
+
+export async function createUser(username, password, email) {
+    return await client
+        .db("b40-b39-we")
+        .collection("users")
+        .insertOne({ username: username, password: password, email:email });
+}
+
+export async function getAllUsers(req) {
+    return await client
+        .db("b40-b39-we")
+        .collection("users")
+        .find(req.query)
+        .toArray();
 }
 
 export async function getUserByName(username) {
-  return await client
-    .db("b39we")
-    .collection("users")
-    .findOne({ username: username });
+    return await client
+        .db("b40-b39-we")
+        .collection("users")
+        .findOne({username:username})
 }
 
-export async function getUserList() {
-  return await client.db("b39we").collection("users").find().toArray();
+
+
+// MOVIES
+export async function updateMovie(id, data) {
+    return await client.db("b39we")
+        .collection("movies")
+        .updateOne({ _id:new ObjectId(id) }, { $set: data });
+}
+
+export async function deleteMovieById(id) {
+    return await client.db("b39we").collection("movies").deleteOne({ _id:new ObjectId(id) });
+}
+
+export async function createMovie(data) {
+    return await client.db("b39we").collection("movies").insertMany(data);
+}
+
+export async function getMovieById(id) {
+    return await client.db("b39we").collection("movies").findOne({ _id:new ObjectId(id) });
+}
+
+export async function getAllMovies() {
+    return await client.db("b39we").collection("movies").find({}).toArray();
 }
