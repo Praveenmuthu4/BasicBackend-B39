@@ -1,7 +1,7 @@
 import express from "express";
 import  jwt  from "jsonwebtoken";
 import bcrypt from "bcrypt";
-import { genPassword, createUser,getUserByName, getUserList } from "../helper.js";
+import { genPass, createUser,getUserByName, getUserList } from "../helper.js";
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -19,7 +19,7 @@ router.post("/signup", async (req, res) => {
     res.status(400).send({ message: "Password pattern does not match" });
     return;
   }
-  const hashedPassword = await genPassword(password);
+  const hashedPassword = await genPass(password);
   const result = await createUser(username, hashedPassword);
   res.send(result);
 });
