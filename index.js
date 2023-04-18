@@ -3,7 +3,6 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import cors from "cors";
 import { userRouter } from "./routes/user.js";
-import { findMovies, findMoviebyID, createMovie, deleteMovie, updateMovie } from "./helper.js";
 
 const app = express();
 app.use(cors());
@@ -23,17 +22,8 @@ app.get("/", function (request, response) {
   response.send("🙋‍♂️, 🌏 🎊✨🤩");
 });
 
-app.get("/movies", findMovies());
-
-app.get("/movies/:id", findMoviebyID());
-
-app.post("/movies", createMovie());
-
-app.delete("/movies/:id", deleteMovie());
-
-app.put("/movies/:id", updateMovie());
-
-
+app.use("/books", bookRouter)
+app.use("/movies",movieRouter)
 app.use("/users", userRouter);
 
 app.listen(PORT, () => console.log(`The server started in: ${PORT} ✨✨`));
