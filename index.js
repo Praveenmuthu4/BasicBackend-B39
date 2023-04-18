@@ -3,6 +3,8 @@ import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import cors from "cors";
 import { userRouter } from "./routes/user.js";
+import { bookRouter } from "./routes/book.js";
+import { movieRouter } from "./routes/movies.js";
 
 const app = express();
 app.use(cors());
