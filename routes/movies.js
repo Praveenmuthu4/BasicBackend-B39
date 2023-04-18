@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllMovies,getMovieById,createMovie,deleteMovieById,updateMovie } from "../helper.js";
+import { getAllMovies,getMovieById,createMovie,deleteMovieById,updateMovie } from "../helper";
 import { auth } from "../middleware/auth.js";
 
 const router = express.Router();

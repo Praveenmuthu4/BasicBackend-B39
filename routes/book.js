@@ -1,4 +1,4 @@
-import { getAllBooks, getBookById, deleteBookById, createBook,updateBook } from "../helper.js";
+import { getAllBooks, getBookById, deleteBookById, createBook,updateBook } from "../helper";
 import express from "express";
 import { auth } from "../middleware/auth.js";
 
